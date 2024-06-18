@@ -1,9 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import { Input } from "./ui/input";
+import { useRouter } from "next/navigation";
 
 const SearchBar = () => {
   const [showModal, setShowModal] = useState(false);
+
+  const router = useRouter();
 
   return (
     <Input
@@ -12,6 +15,11 @@ const SearchBar = () => {
       type="search"
       onFocus={() => setShowModal(true)}
       onBlur={() => setShowModal(false)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          router.push(`dictionary/${e.target.value}`);
+        }
+      }}
     />
   );
 };
